@@ -10,11 +10,6 @@ function ShortView() {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    // Inject external popup ad block scripts as requested in original s/index.html
-    const script1 = document.createElement('script');
-    script1.src = "//filingattenuate.com/78/eb/56/78eb564356465edb57c47d3471c27669.js";
-    document.body.appendChild(script1);
-    
     // Add original CSS styling directly for this page overrides
     document.body.style.backgroundColor = '#000';
     document.body.style.overflow = 'hidden';
@@ -22,9 +17,6 @@ function ShortView() {
     return () => {
       document.body.style.backgroundColor = '';
       document.body.style.overflow = '';
-      if (document.body.contains(script1)) {
-        document.body.removeChild(script1);
-      }
     };
   }, []);
 
@@ -46,8 +38,12 @@ function ShortView() {
     setLoadingText("❌ Gagal memuat video. Mengalihkan...");
     setShowLoading(true);
     setTimeout(() => {
-      window.location.href = "https://cdn2.videy.in";
+      window.location.href = "https://vidcash.cc";
     }, 3000);
+  };
+
+  const handleEnded = () => {
+    window.location.href = "https://vidcash.cc";
   };
 
   // Bot checker as original
@@ -74,6 +70,7 @@ function ShortView() {
         style={{ width: '100%', height: '100%', objectFit: 'contain', display: showLoading ? 'none' : 'block' }}
         onLoadedData={handleLoadedData}
         onError={handleError}
+        onEnded={handleEnded}
       >
         {videoId && <source src={`https://cdn2.videy.co/${videoId}.mp4`} type="video/mp4" />}
         Browser kamu tidak mendukung video.
